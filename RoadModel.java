@@ -11,8 +11,8 @@ public class RoadModel extends GridWorldModel {
     // the grid size
     public static final int GSize = 7;
 
-    boolean processorReady = false; // whether the processor is acquiring
-    boolean carryingCar = false; // whether the retailer is carrying car
+    boolean processorReady = false; // whether the processor is ready to sell cars to customer
+    boolean carryingCar = false; // whether the retailer is ready to carry cars to customer
     int accept_deliveryCount = 0; // how many accept_delivery the customer did
     int availableCars = 2; // how many cars are available
 
@@ -32,7 +32,7 @@ public class RoadModel extends GridWorldModel {
         add(CUSTOMER, lCustomer);
     }
 
-    boolean acquireProcessor() {
+    boolean acquireCar() {
         if (!processorReady) {
             processorReady = true;
             return true;

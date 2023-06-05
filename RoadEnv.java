@@ -64,7 +64,7 @@ public class RoadEnv extends Environment {
         System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
         if (action.equals(of)) { // of = acquire(processor)
-            result = model.acquireProcessor();
+            result = model.acquireCar();
 
         } else if (action.equals(clf)) { // clf = pay(processor)
             result = model.payProcessor();
