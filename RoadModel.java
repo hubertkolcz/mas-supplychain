@@ -91,7 +91,7 @@ public class RoadModel extends GridWorldModel {
 
     boolean handInCar() {
         if (carryingCar) {
-            accept_deliveryCount = 10;
+            accept_deliveryCount = 2;
             carryingCar = false;
             if (view != null)
                 view.update(lCustomer.x, lCustomer.y);

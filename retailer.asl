@@ -3,8 +3,8 @@
 // initially, I believe that there is some car in the processor
 available(car,processor).
 
-// Customer should not buy more than 10 cars a day, due to tax regulations
-limit(car,10).
+// Customer should not buy more than 4 cars a day, due to tax regulations
+limit(car,4).
 
 too_much(B) :-
    .date(YY,MM,DD) &
