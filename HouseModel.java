@@ -5,13 +5,13 @@ import jason.environment.grid.Location;
 public class HouseModel extends GridWorldModel {
 
     // constants for the grid objects
-    public static final int FRIDGE = 16;
-    public static final int OWNER = 32;
+    public static final int PROCESSOR = 16;
+    public static final int CUSTOMER = 32;
 
     // the grid size
     public static final int GSize = 7;
 
-    boolean processorOpen = false; // whether the processor is acquire
+    boolean processorOpen = false; // whether the processor is acquiring
     boolean carryingCar = false; // whether the retailer is carrying car
     int accept_deliveryCount = 0; // how many accept_delivery the customer did
     int availableCars = 2; // how many cars are available
@@ -28,8 +28,8 @@ public class HouseModel extends GridWorldModel {
         setAgPos(0, GSize / 2, GSize / 2);
 
         // initial location of processor and customer
-        add(FRIDGE, lProcessor);
-        add(OWNER, lCustomer);
+        add(PROCESSOR, lProcessor);
+        add(CUSTOMER, lCustomer);
     }
 
     boolean acquireProcessor() {

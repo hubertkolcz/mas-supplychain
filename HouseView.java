@@ -23,14 +23,14 @@ public class HouseView extends GridWorldView {
         Location lRetailer = hmodel.getAgPos(0);
         super.drawAgent(g, x, y, Color.lightGray, -1);
         switch (object) {
-            case HouseModel.FRIDGE:
+            case HouseModel.PROCESSOR:
                 if (lRetailer.equals(hmodel.lProcessor)) {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }
                 g.setColor(Color.black);
                 drawString(g, x, y, defaultFont, "Processor (" + hmodel.availableCars + ")");
                 break;
-            case HouseModel.OWNER:
+            case HouseModel.CUSTOMER:
                 if (lRetailer.equals(hmodel.lCustomer)) {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }
