@@ -8,7 +8,7 @@
 	    <field name="name">House</field>
 	    <field name="fileNameLastSavedAs">House.pd</field>
 	    <field name="filePathLastSavedIn">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRetailer/doc</field>
-	    <field name="openedAs">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRetailer/doc/House.pd</field>
+	    <field name="acquiredAs">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRetailer/doc/House.pd</field>
 	    <field name="applicationVersion">2.3b</field>
 	</object>
     </field>
@@ -24,7 +24,7 @@
 		    <field name="entity">
 			<object type="Action" id="5">
 			    <base type="Entity">
-				<field name="name">open(processor)</field>
+				<field name="name">acquire(processor)</field>
 				<field name="uniqueId">4</field>
 			    </base>
 
@@ -43,7 +43,7 @@
 		    <field name="entity">
 			<object type="Percept" id="8">
 			    <base type="Entity">
-				<field name="name">has(customer,beer)</field>
+				<field name="name">has(customer,car)</field>
 				<field name="uniqueId">8</field>
 			    </base>
 
@@ -59,7 +59,7 @@
 
 					<object type="Percept" id="10">
 					    <base type="Entity">
-						<field name="name">stock(beer,N)</field>
+						<field name="name">stock(car,N)</field>
 						<field name="uniqueId">10</field>
 					    </base>
 
@@ -87,7 +87,7 @@
 
 					<object type="Action" id="12">
 					    <base type="Entity">
-						<field name="name">get(beer)</field>
+						<field name="name">get(car)</field>
 						<field name="uniqueId">5</field>
 					    </base>
 
@@ -95,7 +95,7 @@
 
 					<object type="Action" id="13">
 					    <base type="Entity">
-						<field name="name">hand_in(beer)</field>
+						<field name="name">hand_in(car)</field>
 						<field name="uniqueId">6</field>
 					    </base>
 
@@ -117,7 +117,7 @@
 
 					<object type="Action" id="15">
 					    <base type="Entity">
-						<field name="name">close(processor)</field>
+						<field name="name">pay(processor)</field>
 						<field name="uniqueId">30</field>
 					    </base>
 
@@ -134,7 +134,7 @@
 					    <field name="type">
 						<object type="Message" id="17">
 						    <base type="Entity">
-							<field name="name">achieve: order(beer,N)</field>
+							<field name="name">achieve: order(car,N)</field>
 							<field name="description"></field>
 							<field name="uniqueId">14</field>
 						    </base>
@@ -152,14 +152,14 @@
 							    <field name="toEntities"><list>
 								<object type="Agent" id="19">
 								    <base type="Entity">
-									<field name="name">supermarket</field>
+									<field name="name">producer</field>
 									<field name="uniqueId">3</field>
 								    </base>
 
 								    <field name="actions"><list>
 									<object type="Action" id="20">
 									    <base type="Entity">
-										<field name="name">deliver(beer,N)</field>
+										<field name="name">deliver(car,N)</field>
 										<field name="uniqueId">11</field>
 									    </base>
 
@@ -190,7 +190,7 @@
 									    <field name="type">
 										<object type="Message" id="23">
 										    <base type="Entity">
-											<field name="name">tell: delivered(beer,N,OrderId)</field>
+											<field name="name">tell: delivered(car,N,OrderId)</field>
 											<field name="description"></field>
 											<field name="uniqueId">16</field>
 										    </base>
@@ -288,7 +288,7 @@
 					    <field name="type">
 						<object type="Message" id="27">
 						    <base type="Entity">
-							<field name="name">achieve: has(customer,beer)</field>
+							<field name="name">achieve: has(customer,car)</field>
 							<field name="uniqueId">22</field>
 						    </base>
 
@@ -320,7 +320,7 @@
 								    <field name="actions"><list>
 									<object type="Action" id="30">
 									    <base type="Entity">
-										<field name="name">sip(beer)</field>
+										<field name="name">accept_delivery(car)</field>
 										<field name="uniqueId">9</field>
 									    </base>
 
@@ -351,7 +351,7 @@
 									    <field name="type">
 										<object type="Message" id="33">
 										    <base type="Entity">
-											<field name="name">tell: toomuch(beer)</field>
+											<field name="name">tell: toomuch(car)</field>
 											<field name="uniqueId">31</field>
 										    </base>
 

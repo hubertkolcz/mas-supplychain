@@ -1,10 +1,10 @@
 /* Initial beliefs and rules */
 
-// initially, I believe that there is some beer in the processor
-available(beer,processor).
+// initially, I believe that there is some car in the processor
+available(car,processor).
 
-// my customer should not consume more than 10 beers a day :-)
-limit(beer,10).
+// my customer should not consume more than 10 cars a day :-)
+limit(car,10).
 
 too_much(B) :-
    .date(YY,MM,DD) &
@@ -15,28 +15,28 @@ too_much(B) :-
 
 /* Plans */
 
-+!has(customer,beer)
-   :  available(beer,processor) & not too_much(beer)
++!has(customer,car)
+   :  available(car,processor) & not too_much(car)
    <- !at(retailer,processor);
-      open(processor);
-      get(beer);
-      close(processor);
+      acquire(processor);
+      get(car);
+      pay(processor);
       !at(retailer,customer);
-      hand_in(beer);
-      ?has(customer,beer);
-      // remember that another beer has been consumed
+      hand_in(car);
+      ?has(customer,car);
+      // remember that another car has been consumed
       .date(YY,MM,DD); .time(HH,NN,SS);
-      +consumed(YY,MM,DD,HH,NN,SS,beer).
+      +consumed(YY,MM,DD,HH,NN,SS,car).
 
-+!has(customer,beer)
-   :  not available(beer,processor)
-   <- .send(supermarket, achieve, order(beer,5));
++!has(customer,car)
+   :  not available(car,processor)
+   <- .send(producer, achieve, order(car,5));
       !at(retailer,processor). // go to processor and wait there.
 
-+!has(customer,beer)
-   :  too_much(beer) & limit(beer,L)
++!has(customer,car)
+   :  too_much(car) & limit(car,L)
    <- .concat("The Department of Health does not allow me to give you more than ", L,
-              " beers a day! I am very sorry about that!",M);
+              " cars a day! I am very sorry about that!",M);
       .send(customer,tell,msg(M)).
 
 
@@ -50,20 +50,20 @@ too_much(B) :-
   <- move_towards(P);
      !at(retailer,P).
 
-// when the supermarket makes a delivery, try the 'has' goal again
-+delivered(beer,_Qtd,_OrderId)[source(supermarket)]
+// when the producer makes a delivery, try the 'has' goal again
++delivered(car,_Qtd,_OrderId)[source(producer)]
   :  true
-  <- +available(beer,processor);
-     !has(customer,beer).
+  <- +available(car,processor);
+     !has(customer,car).
 
-// when the processor is opened, the beer stock is perceived
+// when the processor is acquired, the car stock is perceived
 // and thus the available belief is updated
-+stock(beer,0)
-   :  available(beer,processor)
-   <- -available(beer,processor).
-+stock(beer,N)
-   :  N > 0 & not available(beer,processor)
-   <- -+available(beer,processor).
++stock(car,0)
+   :  available(car,processor)
+   <- -available(car,processor).
++stock(car,N)
+   :  N > 0 & not available(car,processor)
+   <- -+available(car,processor).
 
 +?time(T) : true
   <-  time.check(T).

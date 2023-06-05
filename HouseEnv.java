@@ -6,12 +6,12 @@ import java.util.logging.Logger;
 public class HouseEnv extends Environment {
 
     // common literals
-    public static final Literal of = Literal.parseLiteral("open(processor)");
-    public static final Literal clf = Literal.parseLiteral("close(processor)");
-    public static final Literal gb = Literal.parseLiteral("get(beer)");
-    public static final Literal hb = Literal.parseLiteral("hand_in(beer)");
-    public static final Literal sb = Literal.parseLiteral("sip(beer)");
-    public static final Literal hob = Literal.parseLiteral("has(customer,beer)");
+    public static final Literal of = Literal.parseLiteral("acquire(processor)");
+    public static final Literal clf = Literal.parseLiteral("pay(processor)");
+    public static final Literal gb = Literal.parseLiteral("get(car)");
+    public static final Literal hb = Literal.parseLiteral("hand_in(car)");
+    public static final Literal sb = Literal.parseLiteral("accept_delivery(car)");
+    public static final Literal hob = Literal.parseLiteral("has(customer,car)");
 
     public static final Literal af = Literal.parseLiteral("at(retailer,processor)");
     public static final Literal ao = Literal.parseLiteral("at(retailer,customer)");
@@ -49,11 +49,11 @@ public class HouseEnv extends Environment {
             addPercept("retailer", ao);
         }
 
-        // add beer "status" the percepts
+        // add car "status" the percepts
         if (model.processorOpen) {
-            addPercept("retailer", Literal.parseLiteral("stock(beer," + model.availableBeers + ")"));
+            addPercept("retailer", Literal.parseLiteral("stock(car," + model.availableCars + ")"));
         }
-        if (model.sipCount > 0) {
+        if (model.accept_deliveryCount > 0) {
             addPercept("retailer", hob);
             addPercept("customer", hob);
         }
@@ -63,11 +63,11 @@ public class HouseEnv extends Environment {
     public boolean executeAction(String ag, Structure action) {
         System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
-        if (action.equals(of)) { // of = open(processor)
-            result = model.openProcessor();
+        if (action.equals(of)) { // of = acquire(processor)
+            result = model.acquireProcessor();
 
-        } else if (action.equals(clf)) { // clf = close(processor)
-            result = model.closeProcessor();
+        } else if (action.equals(clf)) { // clf = pay(processor)
+            result = model.payProcessor();
 
         } else if (action.getFunctor().equals("move_towards")) {
             String l = action.getTerm(0).toString();
@@ -85,19 +85,19 @@ public class HouseEnv extends Environment {
             }
 
         } else if (action.equals(gb)) {
-            result = model.getBeer();
+            result = model.getCar();
 
         } else if (action.equals(hb)) {
-            result = model.handInBeer();
+            result = model.handInCar();
 
         } else if (action.equals(sb)) {
-            result = model.sipBeer();
+            result = model.accept_deliveryCar();
 
         } else if (action.getFunctor().equals("deliver")) {
             // wait 4 seconds to finish "deliver"
             try {
                 Thread.sleep(4000);
-                result = model.addBeer((int) ((NumberTerm) action.getTerm(1)).solve());
+                result = model.addCar((int) ((NumberTerm) action.getTerm(1)).solve());
             } catch (Exception e) {
                 logger.info("Failed to execute action deliver!" + e);
             }

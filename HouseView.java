@@ -28,15 +28,15 @@ public class HouseView extends GridWorldView {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }
                 g.setColor(Color.black);
-                drawString(g, x, y, defaultFont, "Processor (" + hmodel.availableBeers + ")");
+                drawString(g, x, y, defaultFont, "Processor (" + hmodel.availableCars + ")");
                 break;
             case HouseModel.OWNER:
                 if (lRetailer.equals(hmodel.lCustomer)) {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }
                 String o = "Customer";
-                if (hmodel.sipCount > 0) {
-                    o += " (" + hmodel.sipCount + ")";
+                if (hmodel.accept_deliveryCount > 0) {
+                    o += " (" + hmodel.accept_deliveryCount + ")";
                 }
                 g.setColor(Color.black);
                 drawString(g, x, y, defaultFont, o);
@@ -50,7 +50,7 @@ public class HouseView extends GridWorldView {
         Location lRetailer = hmodel.getAgPos(0);
         if (!lRetailer.equals(hmodel.lCustomer) && !lRetailer.equals(hmodel.lProcessor)) {
             c = Color.yellow;
-            if (hmodel.carryingBeer)
+            if (hmodel.carryingCar)
                 c = Color.orange;
             super.drawAgent(g, x, y, c, -1);
             g.setColor(Color.black);

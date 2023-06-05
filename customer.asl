@@ -1,21 +1,21 @@
 /* Initial goals */
 
-!get(beer).   // initial goal: get a beer
+!get(car).   // initial goal: get a car
 !check_bored. // initial goal: verify whether I am getting bored
 
-+!get(beer) : true
-   <- .send(retailer, achieve, has(customer,beer)).
++!get(car) : true
+   <- .send(retailer, achieve, has(customer,car)).
 
-+has(customer,beer) : true
-   <- !drink(beer).
--has(customer,beer) : true
-   <- !get(beer).
++has(customer,car) : true
+   <- !drink(car).
+-has(customer,car) : true
+   <- !get(car).
 
-// while I have beer, sip
-+!drink(beer) : has(customer,beer)
-   <- sip(beer);
-     !drink(beer).
-+!drink(beer) : not has(customer,beer)
+// while I have car, accept_delivery
++!drink(car) : has(customer,car)
+   <- accept_delivery(car);
+     !drink(car).
++!drink(car) : not has(customer,car)
    <- true.
 
 +!check_bored : true

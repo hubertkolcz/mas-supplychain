@@ -11,10 +11,10 @@ public class HouseModel extends GridWorldModel {
     // the grid size
     public static final int GSize = 7;
 
-    boolean processorOpen = false; // whether the processor is open
-    boolean carryingBeer = false; // whether the retailer is carrying beer
-    int sipCount = 0; // how many sip the customer did
-    int availableBeers = 2; // how many beers are available
+    boolean processorOpen = false; // whether the processor is acquire
+    boolean carryingCar = false; // whether the retailer is carrying car
+    int accept_deliveryCount = 0; // how many accept_delivery the customer did
+    int availableCars = 2; // how many cars are available
 
     Location lProcessor = new Location(0, 0);
     Location lCustomer = new Location(GSize - 1, GSize - 1);
@@ -32,7 +32,7 @@ public class HouseModel extends GridWorldModel {
         add(OWNER, lCustomer);
     }
 
-    boolean openProcessor() {
+    boolean acquireProcessor() {
         if (!processorOpen) {
             processorOpen = true;
             return true;
@@ -41,7 +41,7 @@ public class HouseModel extends GridWorldModel {
         }
     }
 
-    boolean closeProcessor() {
+    boolean payProcessor() {
         if (processorOpen) {
             processorOpen = false;
             return true;
@@ -70,10 +70,10 @@ public class HouseModel extends GridWorldModel {
         return true;
     }
 
-    boolean getBeer() {
-        if (processorOpen && availableBeers > 0 && !carryingBeer) {
-            availableBeers--;
-            carryingBeer = true;
+    boolean getCar() {
+        if (processorOpen && availableCars > 0 && !carryingCar) {
+            availableCars--;
+            carryingCar = true;
             if (view != null)
                 view.update(lProcessor.x, lProcessor.y);
             return true;
@@ -82,17 +82,17 @@ public class HouseModel extends GridWorldModel {
         }
     }
 
-    boolean addBeer(int n) {
-        availableBeers += n;
+    boolean addCar(int n) {
+        availableCars += n;
         if (view != null)
             view.update(lProcessor.x, lProcessor.y);
         return true;
     }
 
-    boolean handInBeer() {
-        if (carryingBeer) {
-            sipCount = 10;
-            carryingBeer = false;
+    boolean handInCar() {
+        if (carryingCar) {
+            accept_deliveryCount = 10;
+            carryingCar = false;
             if (view != null)
                 view.update(lCustomer.x, lCustomer.y);
             return true;
@@ -101,9 +101,9 @@ public class HouseModel extends GridWorldModel {
         }
     }
 
-    boolean sipBeer() {
-        if (sipCount > 0) {
-            sipCount--;
+    boolean accept_deliveryCar() {
+        if (accept_deliveryCount > 0) {
+            accept_deliveryCount--;
             if (view != null)
                 view.update(lCustomer.x, lCustomer.y);
             return true;
