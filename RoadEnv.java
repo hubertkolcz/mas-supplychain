@@ -93,13 +93,13 @@ public class RoadEnv extends Environment {
         } else if (action.equals(sb)) {
             result = model.accept_deliveryCar();
 
-        } else if (action.getFunctor().equals("deliver")) {
-            // wait 4 seconds to finish "deliver"
+        } else if (action.getFunctor().equals("prepare")) {
+            // wait 4 seconds to finish "produce"
             try {
                 Thread.sleep(4000);
-                result = model.addCar((int) ((NumberTerm) action.getTerm(1)).solve());
+                result = model.produceCar((int) ((NumberTerm) action.getTerm(1)).solve());
             } catch (Exception e) {
-                logger.info("Failed to execute action deliver!" + e);
+                logger.info("Failed to prepare car!" + e);
             }
 
         } else {

@@ -82,7 +82,7 @@ public class RoadModel extends GridWorldModel {
         }
     }
 
-    boolean addCar(int n) {
+    boolean produceCar(int n) {
         availableCars += n;
         if (view != null)
             view.update(lProcessor.x, lProcessor.y);

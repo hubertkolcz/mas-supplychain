@@ -5,6 +5,6 @@ last_order_id(1). // initial belief
   <- ?last_order_id(N);
      OrderId = N + 1;
      -+last_order_id(OrderId);
-     deliver(Product,Qtd);
+     prepare(Product,Qtd);
      .send(Ag, tell, delivered(Product,Qtd,OrderId)).
 
