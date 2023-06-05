@@ -3,7 +3,7 @@
 // initially, I believe that there is some car in the processor
 available(car,processor).
 
-// my customer should not consume more than 10 cars a day :-)
+// Customer should not buy more than 10 cars a day, due to tax regulations
 limit(car,10).
 
 too_much(B) :-
@@ -35,8 +35,8 @@ too_much(B) :-
 
 +!has(customer,car)
    :  too_much(car) & limit(car,L)
-   <- .concat("The Department of Health does not allow me to give you more than ", L,
-              " cars a day! I am very sorry about that!",M);
+   <- .concat("States governement doesn't allow to sell more than ", L,
+              " cars a day to a single person! No more transactions possible, as for today.",M);
       .send(customer,tell,msg(M)).
 
 
