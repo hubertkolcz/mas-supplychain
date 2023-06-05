@@ -6,14 +6,14 @@ import java.util.logging.Logger;
 public class HouseEnv extends Environment {
 
     // common literals
-    public static final Literal of  = Literal.parseLiteral("open(fridge)");
-    public static final Literal clf = Literal.parseLiteral("close(fridge)");
-    public static final Literal gb  = Literal.parseLiteral("get(beer)");
-    public static final Literal hb  = Literal.parseLiteral("hand_in(beer)");
-    public static final Literal sb  = Literal.parseLiteral("sip(beer)");
+    public static final Literal of = Literal.parseLiteral("open(processor)");
+    public static final Literal clf = Literal.parseLiteral("close(processor)");
+    public static final Literal gb = Literal.parseLiteral("get(beer)");
+    public static final Literal hb = Literal.parseLiteral("hand_in(beer)");
+    public static final Literal sb = Literal.parseLiteral("sip(beer)");
     public static final Literal hob = Literal.parseLiteral("has(owner,beer)");
 
-    public static final Literal af = Literal.parseLiteral("at(robot,fridge)");
+    public static final Literal af = Literal.parseLiteral("at(robot,processor)");
     public static final Literal ao = Literal.parseLiteral("at(robot,owner)");
 
     static Logger logger = Logger.getLogger(HouseEnv.class.getName());
@@ -25,7 +25,7 @@ public class HouseEnv extends Environment {
         model = new HouseModel();
 
         if (args.length == 1 && args[0].equals("gui")) {
-            HouseView view  = new HouseView(model);
+            HouseView view = new HouseView(model);
             model.setView(view);
         }
 
@@ -42,7 +42,7 @@ public class HouseEnv extends Environment {
         Location lRobot = model.getAgPos(0);
 
         // add agent location to its percepts
-        if (lRobot.equals(model.lFridge)) {
+        if (lRobot.equals(model.lProcessor)) {
             addPercept("robot", af);
         }
         if (lRobot.equals(model.lOwner)) {
@@ -50,8 +50,8 @@ public class HouseEnv extends Environment {
         }
 
         // add beer "status" the percepts
-        if (model.fridgeOpen) {
-            addPercept("robot", Literal.parseLiteral("stock(beer,"+model.availableBeers+")"));
+        if (model.processorOpen) {
+            addPercept("robot", Literal.parseLiteral("stock(beer," + model.availableBeers + ")"));
         }
         if (model.sipCount > 0) {
             addPercept("robot", hob);
@@ -59,22 +59,21 @@ public class HouseEnv extends Environment {
         }
     }
 
-
     @Override
     public boolean executeAction(String ag, Structure action) {
-        System.out.println("["+ag+"] doing: "+action);
+        System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
-        if (action.equals(of)) { // of = open(fridge)
-            result = model.openFridge();
+        if (action.equals(of)) { // of = open(processor)
+            result = model.openProcessor();
 
-        } else if (action.equals(clf)) { // clf = close(fridge)
-            result = model.closeFridge();
+        } else if (action.equals(clf)) { // clf = close(processor)
+            result = model.closeProcessor();
 
         } else if (action.getFunctor().equals("move_towards")) {
             String l = action.getTerm(0).toString();
             Location dest = null;
-            if (l.equals("fridge")) {
-                dest = model.lFridge;
+            if (l.equals("processor")) {
+                dest = model.lProcessor;
             } else if (l.equals("owner")) {
                 dest = model.lOwner;
             }
@@ -98,20 +97,21 @@ public class HouseEnv extends Environment {
             // wait 4 seconds to finish "deliver"
             try {
                 Thread.sleep(4000);
-                result = model.addBeer( (int)((NumberTerm)action.getTerm(1)).solve());
+                result = model.addBeer((int) ((NumberTerm) action.getTerm(1)).solve());
             } catch (Exception e) {
-                logger.info("Failed to execute action deliver!"+e);
+                logger.info("Failed to execute action deliver!" + e);
             }
 
         } else {
-            logger.info("Failed to execute action "+action);
+            logger.info("Failed to execute action " + action);
         }
 
         if (result) {
             updatePercepts();
             try {
                 Thread.sleep(100);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
         return result;
     }

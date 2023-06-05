@@ -24,7 +24,7 @@
 		    <field name="entity">
 			<object type="Action" id="5">
 			    <base type="Entity">
-				<field name="name">open(fridge)</field>
+				<field name="name">open(processor)</field>
 				<field name="uniqueId">4</field>
 			    </base>
 
@@ -117,7 +117,7 @@
 
 					<object type="Action" id="15">
 					    <base type="Entity">
-						<field name="name">close(fridge)</field>
+						<field name="name">close(processor)</field>
 						<field name="uniqueId">30</field>
 					    </base>
 

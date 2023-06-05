@@ -1,7 +1,7 @@
 /* Initial beliefs and rules */
 
-// initially, I believe that there is some beer in the fridge
-available(beer,fridge).
+// initially, I believe that there is some beer in the processor
+available(beer,processor).
 
 // my owner should not consume more than 10 beers a day :-)
 limit(beer,10).
@@ -16,11 +16,11 @@ too_much(B) :-
 /* Plans */
 
 +!has(owner,beer)
-   :  available(beer,fridge) & not too_much(beer)
-   <- !at(robot,fridge);
-      open(fridge);
+   :  available(beer,processor) & not too_much(beer)
+   <- !at(robot,processor);
+      open(processor);
       get(beer);
-      close(fridge);
+      close(processor);
       !at(robot,owner);
       hand_in(beer);
       ?has(owner,beer);
@@ -29,9 +29,9 @@ too_much(B) :-
       +consumed(YY,MM,DD,HH,NN,SS,beer).
 
 +!has(owner,beer)
-   :  not available(beer,fridge)
+   :  not available(beer,processor)
    <- .send(supermarket, achieve, order(beer,5));
-      !at(robot,fridge). // go to fridge and wait there.
+      !at(robot,processor). // go to processor and wait there.
 
 +!has(owner,beer)
    :  too_much(beer) & limit(beer,L)
@@ -53,17 +53,17 @@ too_much(B) :-
 // when the supermarket makes a delivery, try the 'has' goal again
 +delivered(beer,_Qtd,_OrderId)[source(supermarket)]
   :  true
-  <- +available(beer,fridge);
+  <- +available(beer,processor);
      !has(owner,beer).
 
-// when the fridge is opened, the beer stock is perceived
+// when the processor is opened, the beer stock is perceived
 // and thus the available belief is updated
 +stock(beer,0)
-   :  available(beer,fridge)
-   <- -available(beer,fridge).
+   :  available(beer,processor)
+   <- -available(beer,processor).
 +stock(beer,N)
-   :  N > 0 & not available(beer,fridge)
-   <- -+available(beer,fridge).
+   :  N > 0 & not available(beer,processor)
+   <- -+available(beer,processor).
 
 +?time(T) : true
   <-  time.check(T).

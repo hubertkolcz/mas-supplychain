@@ -6,18 +6,18 @@ public class HouseModel extends GridWorldModel {
 
     // constants for the grid objects
     public static final int FRIDGE = 16;
-    public static final int OWNER  = 32;
+    public static final int OWNER = 32;
 
     // the grid size
     public static final int GSize = 7;
 
-    boolean fridgeOpen   = false; // whether the fridge is open
+    boolean processorOpen = false; // whether the processor is open
     boolean carryingBeer = false; // whether the robot is carrying beer
-    int sipCount        = 0; // how many sip the owner did
-    int availableBeers  = 2; // how many beers are available
+    int sipCount = 0; // how many sip the owner did
+    int availableBeers = 2; // how many beers are available
 
-    Location lFridge = new Location(0,0);
-    Location lOwner  = new Location(GSize-1,GSize-1);
+    Location lProcessor = new Location(0, 0);
+    Location lOwner = new Location(GSize - 1, GSize - 1);
 
     public HouseModel() {
         // create a 7x7 grid with one mobile agent
@@ -25,25 +25,25 @@ public class HouseModel extends GridWorldModel {
 
         // initial location of robot (column 3, line 3)
         // ag code 0 means the robot
-        setAgPos(0, GSize/2, GSize/2);
+        setAgPos(0, GSize / 2, GSize / 2);
 
-        // initial location of fridge and owner
-        add(FRIDGE, lFridge);
+        // initial location of processor and owner
+        add(FRIDGE, lProcessor);
         add(OWNER, lOwner);
     }
 
-    boolean openFridge() {
-        if (!fridgeOpen) {
-            fridgeOpen = true;
+    boolean openProcessor() {
+        if (!processorOpen) {
+            processorOpen = true;
             return true;
         } else {
             return false;
         }
     }
 
-    boolean closeFridge() {
-        if (fridgeOpen) {
-            fridgeOpen = false;
+    boolean closeProcessor() {
+        if (processorOpen) {
+            processorOpen = false;
             return true;
         } else {
             return false;
@@ -52,26 +52,30 @@ public class HouseModel extends GridWorldModel {
 
     boolean moveTowards(Location dest) {
         Location r1 = getAgPos(0);
-        if (r1.x < dest.x)        r1.x++;
-        else if (r1.x > dest.x)   r1.x--;
-        if (r1.y < dest.y)        r1.y++;
-        else if (r1.y > dest.y)   r1.y--;
+        if (r1.x < dest.x)
+            r1.x++;
+        else if (r1.x > dest.x)
+            r1.x--;
+        if (r1.y < dest.y)
+            r1.y++;
+        else if (r1.y > dest.y)
+            r1.y--;
         setAgPos(0, r1); // move the robot in the grid
 
-        // repaint the fridge and owner locations
+        // repaint the processor and owner locations
         if (view != null) {
-            view.update(lFridge.x,lFridge.y);
-            view.update(lOwner.x,lOwner.y);
+            view.update(lProcessor.x, lProcessor.y);
+            view.update(lOwner.x, lOwner.y);
         }
         return true;
     }
 
     boolean getBeer() {
-        if (fridgeOpen && availableBeers > 0 && !carryingBeer) {
+        if (processorOpen && availableBeers > 0 && !carryingBeer) {
             availableBeers--;
             carryingBeer = true;
             if (view != null)
-                view.update(lFridge.x,lFridge.y);
+                view.update(lProcessor.x, lProcessor.y);
             return true;
         } else {
             return false;
@@ -81,7 +85,7 @@ public class HouseModel extends GridWorldModel {
     boolean addBeer(int n) {
         availableBeers += n;
         if (view != null)
-            view.update(lFridge.x,lFridge.y);
+            view.update(lProcessor.x, lProcessor.y);
         return true;
     }
 
@@ -90,7 +94,7 @@ public class HouseModel extends GridWorldModel {
             sipCount = 10;
             carryingBeer = false;
             if (view != null)
-                view.update(lOwner.x,lOwner.y);
+                view.update(lOwner.x, lOwner.y);
             return true;
         } else {
             return false;
@@ -101,7 +105,7 @@ public class HouseModel extends GridWorldModel {
         if (sipCount > 0) {
             sipCount--;
             if (view != null)
-                view.update(lOwner.x,lOwner.y);
+                view.update(lOwner.x, lOwner.y);
             return true;
         } else {
             return false;
