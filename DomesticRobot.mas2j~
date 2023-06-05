@@ -4,9 +4,9 @@
 
 */
 
-MAS domestic_robot {
+MAS domestic_retailer {
     environment: HouseEnv(gui) // use "nogui" as parameter to not show the GUI
-    agents: robot;
+    agents: retailer;
             owner;
             supermarket;
 }

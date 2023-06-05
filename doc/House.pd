@@ -7,8 +7,8 @@
 	<object type="ProjectData" id="1">
 	    <field name="name">House</field>
 	    <field name="fileNameLastSavedAs">House.pd</field>
-	    <field name="filePathLastSavedIn">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRobot/doc</field>
-	    <field name="openedAs">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRobot/doc/House.pd</field>
+	    <field name="filePathLastSavedIn">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRetailer/doc</field>
+	    <field name="openedAs">/Users/jomi/academia/publicacoes/jBook/jBook-V2/examples/DomesticRetailer/doc/House.pd</field>
 	    <field name="applicationVersion">2.3b</field>
 	</object>
     </field>
@@ -50,7 +50,7 @@
 			    <field name="agentsResponding"><list>
 				<object type="Agent" id="9">
 				    <base type="Entity">
-					<field name="name">robot</field>
+					<field name="name">retailer</field>
 					<field name="uniqueId">1</field>
 				    </base>
 
@@ -71,7 +71,7 @@
 
 					<object type="Percept" id="11">
 					    <base type="Entity">
-						<field name="name">at(robot,Place)</field>
+						<field name="name">at(retailer,Place)</field>
 						<field name="uniqueId">12</field>
 					    </base>
 

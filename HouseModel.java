@@ -1,7 +1,7 @@
 import jason.environment.grid.GridWorldModel;
 import jason.environment.grid.Location;
 
-/** class that implements the Model of Domestic Robot application */
+/** class that implements the Model of Domestic Retailer application */
 public class HouseModel extends GridWorldModel {
 
     // constants for the grid objects
@@ -12,7 +12,7 @@ public class HouseModel extends GridWorldModel {
     public static final int GSize = 7;
 
     boolean processorOpen = false; // whether the processor is open
-    boolean carryingBeer = false; // whether the robot is carrying beer
+    boolean carryingBeer = false; // whether the retailer is carrying beer
     int sipCount = 0; // how many sip the owner did
     int availableBeers = 2; // how many beers are available
 
@@ -23,8 +23,8 @@ public class HouseModel extends GridWorldModel {
         // create a 7x7 grid with one mobile agent
         super(GSize, GSize, 1);
 
-        // initial location of robot (column 3, line 3)
-        // ag code 0 means the robot
+        // initial location of retailer (column 3, line 3)
+        // ag code 0 means the retailer
         setAgPos(0, GSize / 2, GSize / 2);
 
         // initial location of processor and owner
@@ -60,7 +60,7 @@ public class HouseModel extends GridWorldModel {
             r1.y++;
         else if (r1.y > dest.y)
             r1.y--;
-        setAgPos(0, r1); // move the robot in the grid
+        setAgPos(0, r1); // move the retailer in the grid
 
         // repaint the processor and owner locations
         if (view != null) {

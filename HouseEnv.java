@@ -13,8 +13,8 @@ public class HouseEnv extends Environment {
     public static final Literal sb = Literal.parseLiteral("sip(beer)");
     public static final Literal hob = Literal.parseLiteral("has(owner,beer)");
 
-    public static final Literal af = Literal.parseLiteral("at(robot,processor)");
-    public static final Literal ao = Literal.parseLiteral("at(robot,owner)");
+    public static final Literal af = Literal.parseLiteral("at(retailer,processor)");
+    public static final Literal ao = Literal.parseLiteral("at(retailer,owner)");
 
     static Logger logger = Logger.getLogger(HouseEnv.class.getName());
 
@@ -35,26 +35,26 @@ public class HouseEnv extends Environment {
     /** creates the agents percepts based on the HouseModel */
     void updatePercepts() {
         // clear the percepts of the agents
-        clearPercepts("robot");
+        clearPercepts("retailer");
         clearPercepts("owner");
 
-        // get the robot location
-        Location lRobot = model.getAgPos(0);
+        // get the retailer location
+        Location lRetailer = model.getAgPos(0);
 
         // add agent location to its percepts
-        if (lRobot.equals(model.lProcessor)) {
-            addPercept("robot", af);
+        if (lRetailer.equals(model.lProcessor)) {
+            addPercept("retailer", af);
         }
-        if (lRobot.equals(model.lOwner)) {
-            addPercept("robot", ao);
+        if (lRetailer.equals(model.lOwner)) {
+            addPercept("retailer", ao);
         }
 
         // add beer "status" the percepts
         if (model.processorOpen) {
-            addPercept("robot", Literal.parseLiteral("stock(beer," + model.availableBeers + ")"));
+            addPercept("retailer", Literal.parseLiteral("stock(beer," + model.availableBeers + ")"));
         }
         if (model.sipCount > 0) {
-            addPercept("robot", hob);
+            addPercept("retailer", hob);
             addPercept("owner", hob);
         }
     }

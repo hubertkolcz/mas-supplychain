@@ -17,11 +17,11 @@ too_much(B) :-
 
 +!has(owner,beer)
    :  available(beer,processor) & not too_much(beer)
-   <- !at(robot,processor);
+   <- !at(retailer,processor);
       open(processor);
       get(beer);
       close(processor);
-      !at(robot,owner);
+      !at(retailer,owner);
       hand_in(beer);
       ?has(owner,beer);
       // remember that another beer has been consumed
@@ -31,7 +31,7 @@ too_much(B) :-
 +!has(owner,beer)
    :  not available(beer,processor)
    <- .send(supermarket, achieve, order(beer,5));
-      !at(robot,processor). // go to processor and wait there.
+      !at(retailer,processor). // go to processor and wait there.
 
 +!has(owner,beer)
    :  too_much(beer) & limit(beer,L)
@@ -45,10 +45,10 @@ too_much(B) :-
    <- .current_intention(I);
       .print("Failed to achieve goal '!has(_,_)'. Current intention is: ",I).
 
-+!at(robot,P) : at(robot,P) <- true.
-+!at(robot,P) : not at(robot,P)
++!at(retailer,P) : at(retailer,P) <- true.
++!at(retailer,P) : not at(retailer,P)
   <- move_towards(P);
-     !at(robot,P).
+     !at(retailer,P).
 
 // when the supermarket makes a delivery, try the 'has' goal again
 +delivered(beer,_Qtd,_OrderId)[source(supermarket)]

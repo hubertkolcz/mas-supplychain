@@ -4,7 +4,7 @@
 !check_bored. // initial goal: verify whether I am getting bored
 
 +!get(beer) : true
-   <- .send(robot, achieve, has(owner,beer)).
+   <- .send(retailer, achieve, has(owner,beer)).
 
 +has(owner,beer) : true
    <- !drink(beer).
@@ -20,7 +20,7 @@
 
 +!check_bored : true
    <- .random(X); .wait(X*5000+2000);  // i get bored at random times
-      .send(robot, askOne, time(_), R); // when bored, I ask the robot about the time
+      .send(retailer, askOne, time(_), R); // when bored, I ask the retailer about the time
       .print(R);
       !check_bored.
 
