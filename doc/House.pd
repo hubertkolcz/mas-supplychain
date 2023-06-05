@@ -43,7 +43,7 @@
 		    <field name="entity">
 			<object type="Percept" id="8">
 			    <base type="Entity">
-				<field name="name">has(owner,beer)</field>
+				<field name="name">has(customer,beer)</field>
 				<field name="uniqueId">8</field>
 			    </base>
 
@@ -288,7 +288,7 @@
 					    <field name="type">
 						<object type="Message" id="27">
 						    <base type="Entity">
-							<field name="name">achieve: has(owner,beer)</field>
+							<field name="name">achieve: has(customer,beer)</field>
 							<field name="uniqueId">22</field>
 						    </base>
 
@@ -309,7 +309,7 @@
 							    <field name="fromEntities"><list>
 								<object type="Agent" id="29">
 								    <base type="Entity">
-									<field name="name">owner</field>
+									<field name="name">customer</field>
 									<field name="uniqueId">2</field>
 								    </base>
 

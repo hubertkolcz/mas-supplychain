@@ -7,6 +7,6 @@
 MAS domestic_retailer {
     environment: HouseEnv(gui) // use "nogui" as parameter to not show the GUI
     agents: retailer;
-            owner;
+            customer;
             supermarket;
 }                                                                         

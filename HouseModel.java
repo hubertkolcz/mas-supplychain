@@ -13,11 +13,11 @@ public class HouseModel extends GridWorldModel {
 
     boolean processorOpen = false; // whether the processor is open
     boolean carryingBeer = false; // whether the retailer is carrying beer
-    int sipCount = 0; // how many sip the owner did
+    int sipCount = 0; // how many sip the customer did
     int availableBeers = 2; // how many beers are available
 
     Location lProcessor = new Location(0, 0);
-    Location lOwner = new Location(GSize - 1, GSize - 1);
+    Location lCustomer = new Location(GSize - 1, GSize - 1);
 
     public HouseModel() {
         // create a 7x7 grid with one mobile agent
@@ -27,9 +27,9 @@ public class HouseModel extends GridWorldModel {
         // ag code 0 means the retailer
         setAgPos(0, GSize / 2, GSize / 2);
 
-        // initial location of processor and owner
+        // initial location of processor and customer
         add(FRIDGE, lProcessor);
-        add(OWNER, lOwner);
+        add(OWNER, lCustomer);
     }
 
     boolean openProcessor() {
@@ -62,10 +62,10 @@ public class HouseModel extends GridWorldModel {
             r1.y--;
         setAgPos(0, r1); // move the retailer in the grid
 
-        // repaint the processor and owner locations
+        // repaint the processor and customer locations
         if (view != null) {
             view.update(lProcessor.x, lProcessor.y);
-            view.update(lOwner.x, lOwner.y);
+            view.update(lCustomer.x, lCustomer.y);
         }
         return true;
     }
@@ -94,7 +94,7 @@ public class HouseModel extends GridWorldModel {
             sipCount = 10;
             carryingBeer = false;
             if (view != null)
-                view.update(lOwner.x, lOwner.y);
+                view.update(lCustomer.x, lCustomer.y);
             return true;
         } else {
             return false;
@@ -105,7 +105,7 @@ public class HouseModel extends GridWorldModel {
         if (sipCount > 0) {
             sipCount--;
             if (view != null)
-                view.update(lOwner.x, lOwner.y);
+                view.update(lCustomer.x, lCustomer.y);
             return true;
         } else {
             return false;

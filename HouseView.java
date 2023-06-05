@@ -31,10 +31,10 @@ public class HouseView extends GridWorldView {
                 drawString(g, x, y, defaultFont, "Processor (" + hmodel.availableBeers + ")");
                 break;
             case HouseModel.OWNER:
-                if (lRetailer.equals(hmodel.lOwner)) {
+                if (lRetailer.equals(hmodel.lCustomer)) {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }
-                String o = "Owner";
+                String o = "Customer";
                 if (hmodel.sipCount > 0) {
                     o += " (" + hmodel.sipCount + ")";
                 }
@@ -48,7 +48,7 @@ public class HouseView extends GridWorldView {
     @Override
     public void drawAgent(Graphics g, int x, int y, Color c, int id) {
         Location lRetailer = hmodel.getAgPos(0);
-        if (!lRetailer.equals(hmodel.lOwner) && !lRetailer.equals(hmodel.lProcessor)) {
+        if (!lRetailer.equals(hmodel.lCustomer) && !lRetailer.equals(hmodel.lProcessor)) {
             c = Color.yellow;
             if (hmodel.carryingBeer)
                 c = Color.orange;

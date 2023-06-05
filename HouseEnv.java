@@ -11,10 +11,10 @@ public class HouseEnv extends Environment {
     public static final Literal gb = Literal.parseLiteral("get(beer)");
     public static final Literal hb = Literal.parseLiteral("hand_in(beer)");
     public static final Literal sb = Literal.parseLiteral("sip(beer)");
-    public static final Literal hob = Literal.parseLiteral("has(owner,beer)");
+    public static final Literal hob = Literal.parseLiteral("has(customer,beer)");
 
     public static final Literal af = Literal.parseLiteral("at(retailer,processor)");
-    public static final Literal ao = Literal.parseLiteral("at(retailer,owner)");
+    public static final Literal ao = Literal.parseLiteral("at(retailer,customer)");
 
     static Logger logger = Logger.getLogger(HouseEnv.class.getName());
 
@@ -36,7 +36,7 @@ public class HouseEnv extends Environment {
     void updatePercepts() {
         // clear the percepts of the agents
         clearPercepts("retailer");
-        clearPercepts("owner");
+        clearPercepts("customer");
 
         // get the retailer location
         Location lRetailer = model.getAgPos(0);
@@ -45,7 +45,7 @@ public class HouseEnv extends Environment {
         if (lRetailer.equals(model.lProcessor)) {
             addPercept("retailer", af);
         }
-        if (lRetailer.equals(model.lOwner)) {
+        if (lRetailer.equals(model.lCustomer)) {
             addPercept("retailer", ao);
         }
 
@@ -55,7 +55,7 @@ public class HouseEnv extends Environment {
         }
         if (model.sipCount > 0) {
             addPercept("retailer", hob);
-            addPercept("owner", hob);
+            addPercept("customer", hob);
         }
     }
 
@@ -74,8 +74,8 @@ public class HouseEnv extends Environment {
             Location dest = null;
             if (l.equals("processor")) {
                 dest = model.lProcessor;
-            } else if (l.equals("owner")) {
-                dest = model.lOwner;
+            } else if (l.equals("customer")) {
+                dest = model.lCustomer;
             }
 
             try {

@@ -3,7 +3,7 @@
 // initially, I believe that there is some beer in the processor
 available(beer,processor).
 
-// my owner should not consume more than 10 beers a day :-)
+// my customer should not consume more than 10 beers a day :-)
 limit(beer,10).
 
 too_much(B) :-
@@ -15,29 +15,29 @@ too_much(B) :-
 
 /* Plans */
 
-+!has(owner,beer)
++!has(customer,beer)
    :  available(beer,processor) & not too_much(beer)
    <- !at(retailer,processor);
       open(processor);
       get(beer);
       close(processor);
-      !at(retailer,owner);
+      !at(retailer,customer);
       hand_in(beer);
-      ?has(owner,beer);
+      ?has(customer,beer);
       // remember that another beer has been consumed
       .date(YY,MM,DD); .time(HH,NN,SS);
       +consumed(YY,MM,DD,HH,NN,SS,beer).
 
-+!has(owner,beer)
++!has(customer,beer)
    :  not available(beer,processor)
    <- .send(supermarket, achieve, order(beer,5));
       !at(retailer,processor). // go to processor and wait there.
 
-+!has(owner,beer)
++!has(customer,beer)
    :  too_much(beer) & limit(beer,L)
    <- .concat("The Department of Health does not allow me to give you more than ", L,
               " beers a day! I am very sorry about that!",M);
-      .send(owner,tell,msg(M)).
+      .send(customer,tell,msg(M)).
 
 
 -!has(_,_)
@@ -54,7 +54,7 @@ too_much(B) :-
 +delivered(beer,_Qtd,_OrderId)[source(supermarket)]
   :  true
   <- +available(beer,processor);
-     !has(owner,beer).
+     !has(customer,beer).
 
 // when the processor is opened, the beer stock is perceived
 // and thus the available belief is updated

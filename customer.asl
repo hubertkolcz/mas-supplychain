@@ -4,18 +4,18 @@
 !check_bored. // initial goal: verify whether I am getting bored
 
 +!get(beer) : true
-   <- .send(retailer, achieve, has(owner,beer)).
+   <- .send(retailer, achieve, has(customer,beer)).
 
-+has(owner,beer) : true
++has(customer,beer) : true
    <- !drink(beer).
--has(owner,beer) : true
+-has(customer,beer) : true
    <- !get(beer).
 
 // while I have beer, sip
-+!drink(beer) : has(owner,beer)
++!drink(beer) : has(customer,beer)
    <- sip(beer);
      !drink(beer).
-+!drink(beer) : not has(owner,beer)
++!drink(beer) : not has(customer,beer)
    <- true.
 
 +!check_bored : true
