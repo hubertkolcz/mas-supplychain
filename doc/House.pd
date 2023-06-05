@@ -190,7 +190,7 @@
 									    <field name="type">
 										<object type="Message" id="23">
 										    <base type="Entity">
-											<field name="name">tell: delivered(car,N,OrderId)</field>
+											<field name="name">tell: order_prepared(car,N,OrderId)</field>
 											<field name="description"></field>
 											<field name="uniqueId">16</field>
 										    </base>

@@ -51,7 +51,7 @@ too_much(B) :-
      !at(retailer,P).
 
 // when the producer makes a delivery, try the 'has' goal again
-+delivered(car,_Qtd,_OrderId)[source(producer)]
++order_prepared(car,_Qtd,_OrderId)[source(producer)]
   :  true
   <- +available(car,processor);
      !has(customer,car).
