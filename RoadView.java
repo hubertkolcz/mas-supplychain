@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 /** class that implements the View of Domestic Retailer application */
-public class HouseView extends GridWorldView {
+public class RoadView extends GridWorldView {
 
-    HouseModel hmodel;
+    RoadModel hmodel;
 
-    public HouseView(HouseModel model) {
+    public RoadView(RoadModel model) {
         super(model, "Domestic Retailer", 700);
         hmodel = model;
         defaultFont = new Font("Arial", Font.BOLD, 16); // change default font
@@ -23,14 +23,14 @@ public class HouseView extends GridWorldView {
         Location lRetailer = hmodel.getAgPos(0);
         super.drawAgent(g, x, y, Color.lightGray, -1);
         switch (object) {
-            case HouseModel.PROCESSOR:
+            case RoadModel.PROCESSOR:
                 if (lRetailer.equals(hmodel.lProcessor)) {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }
                 g.setColor(Color.black);
                 drawString(g, x, y, defaultFont, "Processor (" + hmodel.availableCars + ")");
                 break;
-            case HouseModel.CUSTOMER:
+            case RoadModel.CUSTOMER:
                 if (lRetailer.equals(hmodel.lCustomer)) {
                     super.drawAgent(g, x, y, Color.yellow, -1);
                 }

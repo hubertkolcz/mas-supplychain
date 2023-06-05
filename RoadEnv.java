@@ -3,7 +3,7 @@ import jason.environment.Environment;
 import jason.environment.grid.Location;
 import java.util.logging.Logger;
 
-public class HouseEnv extends Environment {
+public class RoadEnv extends Environment {
 
     // common literals
     public static final Literal of = Literal.parseLiteral("acquire(processor)");
@@ -16,23 +16,23 @@ public class HouseEnv extends Environment {
     public static final Literal af = Literal.parseLiteral("at(retailer,processor)");
     public static final Literal ao = Literal.parseLiteral("at(retailer,customer)");
 
-    static Logger logger = Logger.getLogger(HouseEnv.class.getName());
+    static Logger logger = Logger.getLogger(RoadEnv.class.getName());
 
-    HouseModel model; // the model of the grid
+    RoadModel model; // the model of the grid
 
     @Override
     public void init(String[] args) {
-        model = new HouseModel();
+        model = new RoadModel();
 
         if (args.length == 1 && args[0].equals("gui")) {
-            HouseView view = new HouseView(model);
+            RoadView view = new RoadView(model);
             model.setView(view);
         }
 
         updatePercepts();
     }
 
-    /** creates the agents percepts based on the HouseModel */
+    /** creates the agents percepts based on the RoadModel */
     void updatePercepts() {
         // clear the percepts of the agents
         clearPercepts("retailer");
@@ -50,7 +50,7 @@ public class HouseEnv extends Environment {
         }
 
         // add car "status" the percepts
-        if (model.processorOpen) {
+        if (model.processorReady) {
             addPercept("retailer", Literal.parseLiteral("stock(car," + model.availableCars + ")"));
         }
         if (model.accept_deliveryCount > 0) {

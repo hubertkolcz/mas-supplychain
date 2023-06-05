@@ -2,7 +2,7 @@ import jason.environment.grid.GridWorldModel;
 import jason.environment.grid.Location;
 
 /** class that implements the Model of Domestic Retailer application */
-public class HouseModel extends GridWorldModel {
+public class RoadModel extends GridWorldModel {
 
     // constants for the grid objects
     public static final int PROCESSOR = 16;
@@ -11,7 +11,7 @@ public class HouseModel extends GridWorldModel {
     // the grid size
     public static final int GSize = 7;
 
-    boolean processorOpen = false; // whether the processor is acquiring
+    boolean processorReady = false; // whether the processor is acquiring
     boolean carryingCar = false; // whether the retailer is carrying car
     int accept_deliveryCount = 0; // how many accept_delivery the customer did
     int availableCars = 2; // how many cars are available
@@ -19,7 +19,7 @@ public class HouseModel extends GridWorldModel {
     Location lProcessor = new Location(0, 0);
     Location lCustomer = new Location(GSize - 1, GSize - 1);
 
-    public HouseModel() {
+    public RoadModel() {
         // create a 7x7 grid with one mobile agent
         super(GSize, GSize, 1);
 
@@ -33,8 +33,8 @@ public class HouseModel extends GridWorldModel {
     }
 
     boolean acquireProcessor() {
-        if (!processorOpen) {
-            processorOpen = true;
+        if (!processorReady) {
+            processorReady = true;
             return true;
         } else {
             return false;
@@ -42,8 +42,8 @@ public class HouseModel extends GridWorldModel {
     }
 
     boolean payProcessor() {
-        if (processorOpen) {
-            processorOpen = false;
+        if (processorReady) {
+            processorReady = false;
             return true;
         } else {
             return false;
@@ -71,7 +71,7 @@ public class HouseModel extends GridWorldModel {
     }
 
     boolean getCar() {
-        if (processorOpen && availableCars > 0 && !carryingCar) {
+        if (processorReady && availableCars > 0 && !carryingCar) {
             availableCars--;
             carryingCar = true;
             if (view != null)
