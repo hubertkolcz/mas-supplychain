@@ -16,7 +16,7 @@ public class RoadEnv extends Environment {
     public static final Literal RETAILER_AT_PROCESSOR = Literal.parseLiteral("at(retailer,processor)");
     public static final Literal RETAILER_AT_CUSTOMER = Literal.parseLiteral("at(retailer,customer)");
 
-    static Logger logger = Logger.getLogger(RoadEnv.class.getName());
+    static Logger LOGGER = Logger.getLogger(RoadEnv.class.getName());
 
     RoadModel model; // the model of the grid
 
@@ -57,10 +57,10 @@ public class RoadEnv extends Environment {
     public boolean executeAction(String ag, Structure action) {
         System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
-        if (action.equals(NEGOTIATE_WITH_PROCESSOR)) { // NEGOTIATE_WITH_PROCESSOR = negotiate(processor)
+        if (action.equals(NEGOTIATE_WITH_PROCESSOR)) {
             result = model.acquireCar();
 
-        } else if (action.equals(PAY_TO_PROCESSOR)) { // PAY_TO_PROCESSOR = pay(processor)
+        } else if (action.equals(PAY_TO_PROCESSOR)) {
             result = model.payProcessor();
 
         } else if (action.getFunctor().equals("move_towards")) {
@@ -93,11 +93,11 @@ public class RoadEnv extends Environment {
                 Thread.sleep(4000);
                 result = model.produceCar((int) ((NumberTerm) action.getTerm(1)).solve());
             } catch (Exception e) {
-                logger.info("Failed to prepare car!" + e);
+                LOGGER.info("Failed to prepare car!" + e);
             }
 
         } else {
-            logger.info("Failed to execute action " + action);
+            LOGGER.info("Failed to execute action " + action);
         }
 
         if (result) {

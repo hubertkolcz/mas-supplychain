@@ -1,11 +1,12 @@
 /* Initial beliefs and rules */
 
-// initially, I believe that there is some car in the processor
+// Retailer believes that cars are available in Processor, so he can start move forward
 available(car,processor).
 
-// Customer should not buy more than 4 cars a day, due to tax regulations
+// Retailer cannot sell more than 4 cars a day, due to tax regulations
 limit(car,4).
 
+// Retailer believes that 
 too_much(B) :-
    .date(YY,MM,DD) &
    .count(sold(YY,MM,DD,_,_,_,B),QtdB) &

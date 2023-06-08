@@ -51,16 +51,18 @@ public class RoadModel extends GridWorldModel {
     }
 
     boolean moveTowards(Location dest) {
-        Location r1 = getAgPos(0);
-        if (r1.x < dest.x)
-            r1.x++;
-        else if (r1.x > dest.x)
-            r1.x--;
-        if (r1.y < dest.y)
-            r1.y++;
-        else if (r1.y > dest.y)
-            r1.y--;
-        setAgPos(0, r1); // move the retailer in the grid
+        Location currentLocation = getAgPos(0);
+        if (currentLocation.x < dest.x) {
+            currentLocation.x++;
+        } else if (currentLocation.x > dest.x) {
+            currentLocation.x--;
+        }
+        if (currentLocation.y < dest.y) {
+            currentLocation.y++;
+        } else if (currentLocation.y > dest.y) {
+            currentLocation.y--;
+        }
+        setAgPos(0, currentLocation); // move the retailer in the grid
 
         // repaint the processor and customer locations
         if (view != null) {
