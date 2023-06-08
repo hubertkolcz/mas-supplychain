@@ -1,0 +1,6 @@
+MAS supply_chain_management_system {
+    environment: RoadEnv(nogui)
+    agents: retailer;
+            customer;
+            producer;
+}

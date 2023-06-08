@@ -1,7 +1,7 @@
 import jason.environment.grid.GridWorldModel;
 import jason.environment.grid.Location;
 
-/** class that implements the Model of Domestic Retailer application */
+/** class that implements the Model of Supply Chain application */
 public class RoadModel extends GridWorldModel {
 
     // constants for the grid objects

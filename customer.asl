@@ -6,15 +6,15 @@
    <- .send(retailer, achieve, has(customer,car)).
 
 +has(customer,car) : true
-   <- !drink(car).
+   <- !accept_delivery(car).
 -has(customer,car) : true
    <- !get(car).
 
 // while I have car, accept_delivery
-+!drink(car) : has(customer,car)
++!accept_delivery(car) : has(customer,car)
    <- accept_delivery(car);
-     !drink(car).
-+!drink(car) : not has(customer,car)
+     !accept_delivery(car).
++!accept_delivery(car) : not has(customer,car)
    <- true.
 
 +msg(M)[source(Ag)] : true
