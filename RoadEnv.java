@@ -6,15 +6,15 @@ import java.util.logging.Logger;
 public class RoadEnv extends Environment {
 
     // common literals
-    public static final Literal of = Literal.parseLiteral("negotiate(processor)");
-    public static final Literal clf = Literal.parseLiteral("pay(processor)");
-    public static final Literal gb = Literal.parseLiteral("get(car)");
-    public static final Literal hb = Literal.parseLiteral("hand_in(car)");
-    public static final Literal sb = Literal.parseLiteral("accept_delivery(car)");
-    public static final Literal hob = Literal.parseLiteral("has(customer,car)");
+    public static final Literal NEGOTIATE_PROCESSOR = Literal.parseLiteral("negotiate(processor)");
+    public static final Literal PAY_PROCESSOR = Literal.parseLiteral("pay(processor)");
+    public static final Literal GET_CAR = Literal.parseLiteral("get(car)");
+    public static final Literal HAND_IN = Literal.parseLiteral("hand_in(car)");
+    public static final Literal ACCEPT_DELIVERY = Literal.parseLiteral("accept_delivery(car)");
+    public static final Literal HAS_CUSTOMER_CAR = Literal.parseLiteral("has(customer,car)");
 
-    public static final Literal af = Literal.parseLiteral("at(retailer,processor)");
-    public static final Literal ao = Literal.parseLiteral("at(retailer,customer)");
+    public static final Literal RETAILER_AT_PROCESSOR = Literal.parseLiteral("at(retailer,processor)");
+    public static final Literal RETAILER_AT_CUSTOMER = Literal.parseLiteral("at(retailer,customer)");
 
     static Logger logger = Logger.getLogger(RoadEnv.class.getName());
 
@@ -37,10 +37,10 @@ public class RoadEnv extends Environment {
 
         // add agent location to its percepts
         if (lRetailer.equals(model.lProcessor)) {
-            addPercept("retailer", af);
+            addPercept("retailer", RETAILER_AT_PROCESSOR);
         }
         if (lRetailer.equals(model.lCustomer)) {
-            addPercept("retailer", ao);
+            addPercept("retailer", RETAILER_AT_CUSTOMER);
         }
 
         // add car "status" the percepts
@@ -48,8 +48,8 @@ public class RoadEnv extends Environment {
             addPercept("retailer", Literal.parseLiteral("stock(car," + model.availableCars + ")"));
         }
         if (model.accept_deliveryCount > 0) {
-            addPercept("retailer", hob);
-            addPercept("customer", hob);
+            addPercept("retailer", HAS_CUSTOMER_CAR);
+            addPercept("customer", HAS_CUSTOMER_CAR);
         }
     }
 
@@ -57,10 +57,10 @@ public class RoadEnv extends Environment {
     public boolean executeAction(String ag, Structure action) {
         System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
-        if (action.equals(of)) { // of = negotiate(processor)
+        if (action.equals(NEGOTIATE_PROCESSOR)) { // NEGOTIATE_PROCESSOR = negotiate(processor)
             result = model.acquireCar();
 
-        } else if (action.equals(clf)) { // clf = pay(processor)
+        } else if (action.equals(PAY_PROCESSOR)) { // PAY_PROCESSOR = pay(processor)
             result = model.payProcessor();
 
         } else if (action.getFunctor().equals("move_towards")) {
@@ -78,13 +78,13 @@ public class RoadEnv extends Environment {
                 e.printStackTrace();
             }
 
-        } else if (action.equals(gb)) {
+        } else if (action.equals(GET_CAR)) {
             result = model.getCar();
 
-        } else if (action.equals(hb)) {
+        } else if (action.equals(HAND_IN)) {
             result = model.handInCar();
 
-        } else if (action.equals(sb)) {
+        } else if (action.equals(ACCEPT_DELIVERY)) {
             result = model.accept_deliveryCar();
 
         } else if (action.getFunctor().equals("prepare")) {
