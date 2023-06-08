@@ -9,7 +9,7 @@ public class RoadModel extends GridWorldModel {
     public static final int CUSTOMER = 32;
 
     // the grid size
-    public static final int GSize = 7;
+    public static final int GSize = 2;
 
     boolean processorReady = false; // whether the processor is ready to sell cars to customer
     boolean carryingCar = false; // whether the retailer is ready to carry cars to customer

@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 public class RoadEnv extends Environment {
 
     // common literals
-    public static final Literal of = Literal.parseLiteral("acquire(processor)");
+    public static final Literal of = Literal.parseLiteral("negotiate(processor)");
     public static final Literal clf = Literal.parseLiteral("pay(processor)");
     public static final Literal gb = Literal.parseLiteral("get(car)");
     public static final Literal hb = Literal.parseLiteral("hand_in(car)");
@@ -57,7 +57,7 @@ public class RoadEnv extends Environment {
     public boolean executeAction(String ag, Structure action) {
         System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
-        if (action.equals(of)) { // of = acquire(processor)
+        if (action.equals(of)) { // of = negotiate(processor)
             result = model.acquireCar();
 
         } else if (action.equals(clf)) { // clf = pay(processor)

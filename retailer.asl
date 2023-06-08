@@ -8,7 +8,7 @@ limit(car,4).
 
 too_much(B) :-
    .date(YY,MM,DD) &
-   .count(consumed(YY,MM,DD,_,_,_,B),QtdB) &
+   .count(sold(YY,MM,DD,_,_,_,B),QtdB) &
    limit(B,Limit) &
    QtdB > Limit.
 
@@ -18,15 +18,15 @@ too_much(B) :-
 +!has(customer,car)
    :  available(car,processor) & not too_much(car)
    <- !at(retailer,processor);
-      acquire(processor);
+      negotiate(processor);
       get(car);
       pay(processor);
       !at(retailer,customer);
       hand_in(car);
       ?has(customer,car);
-      // remember that another car has been consumed
+      // remember that another car has been sold
       .date(YY,MM,DD); .time(HH,NN,SS);
-      +consumed(YY,MM,DD,HH,NN,SS,car).
+      +sold(YY,MM,DD,HH,NN,SS,car).
 
 +!has(customer,car)
    :  not available(car,processor)
@@ -56,7 +56,7 @@ too_much(B) :-
   <- +available(car,processor);
      !has(customer,car).
 
-// when the processor is acquired, the car stock is perceived
+// when the processor is sold, the car stock is perceived
 // and thus the available belief is updated
 +stock(car,0)
    :  available(car,processor)
