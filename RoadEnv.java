@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 public class RoadEnv extends Environment {
 
     // common literals
-    public static final Literal NEGOTIATE_PROCESSOR = Literal.parseLiteral("negotiate(processor)");
-    public static final Literal PAY_PROCESSOR = Literal.parseLiteral("pay(processor)");
+    public static final Literal NEGOTIATE_WITH_PROCESSOR = Literal.parseLiteral("negotiate(processor)");
+    public static final Literal PAY_TO_PROCESSOR = Literal.parseLiteral("pay(processor)");
     public static final Literal GET_CAR = Literal.parseLiteral("get(car)");
-    public static final Literal HAND_IN = Literal.parseLiteral("hand_in(car)");
+    public static final Literal HAND_IN_CAR = Literal.parseLiteral("hand_in(car)");
     public static final Literal ACCEPT_DELIVERY = Literal.parseLiteral("accept_delivery(car)");
     public static final Literal HAS_CUSTOMER_CAR = Literal.parseLiteral("has(customer,car)");
 
@@ -57,10 +57,10 @@ public class RoadEnv extends Environment {
     public boolean executeAction(String ag, Structure action) {
         System.out.println("[" + ag + "] doing: " + action);
         boolean result = false;
-        if (action.equals(NEGOTIATE_PROCESSOR)) { // NEGOTIATE_PROCESSOR = negotiate(processor)
+        if (action.equals(NEGOTIATE_WITH_PROCESSOR)) { // NEGOTIATE_WITH_PROCESSOR = negotiate(processor)
             result = model.acquireCar();
 
-        } else if (action.equals(PAY_PROCESSOR)) { // PAY_PROCESSOR = pay(processor)
+        } else if (action.equals(PAY_TO_PROCESSOR)) { // PAY_TO_PROCESSOR = pay(processor)
             result = model.payProcessor();
 
         } else if (action.getFunctor().equals("move_towards")) {
@@ -81,7 +81,7 @@ public class RoadEnv extends Environment {
         } else if (action.equals(GET_CAR)) {
             result = model.getCar();
 
-        } else if (action.equals(HAND_IN)) {
+        } else if (action.equals(HAND_IN_CAR)) {
             result = model.handInCar();
 
         } else if (action.equals(ACCEPT_DELIVERY)) {

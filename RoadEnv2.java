@@ -7,7 +7,7 @@
 // // common literals
 // public static final Literal ACQUIRE_PROCESSOR =
 // Literal.parseLiteral("negotiate(processor)");
-// public static final Literal PAY_PROCESSOR =
+// public static final Literal PAY_TO_PROCESSOR =
 // Literal.parseLiteral("pay(processor)");
 // public static final Literal GET_CAR = Literal.parseLiteral("get(car)");
 // public static final Literal HAND_IN_CAR =
@@ -67,7 +67,7 @@
 // boolean result = false;
 // if (action.equals(ACQUIRE_PROCESSOR)) {
 // result = model.acquireCar();
-// } else if (action.equals(PAY_PROCESSOR)) {
+// } else if (action.equals(PAY_TO_PROCESSOR)) {
 // result = model.payProcessor();
 // } else if (action.getFunctor().equals("move_towards")) {
 // String l = action.getTerm(0).toString();
