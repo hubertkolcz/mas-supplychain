@@ -9,9 +9,9 @@ public class RoadEnv extends Environment {
     public static final Literal NEGOTIATE_WITH_PROCESSOR = Literal.parseLiteral("negotiate(processor)");
     public static final Literal PAY_TO_PROCESSOR = Literal.parseLiteral("pay(processor)");
     public static final Literal GET_CAR = Literal.parseLiteral("get(car)");
-    public static final Literal HAND_IN_CAR = Literal.parseLiteral("hand_in(car)");
+    public static final Literal HAND_IN_CAR = Literal.parseLiteral("take_car(car)");
     public static final Literal ACCEPT_DELIVERY = Literal.parseLiteral("accept_delivery(car)");
-    public static final Literal HAS_CUSTOMER_CAR = Literal.parseLiteral("has(customer,car)");
+    public static final Literal HAS_CAR = Literal.parseLiteral("has(customer,car)");
 
     public static final Literal RETAILER_AT_PROCESSOR = Literal.parseLiteral("at(retailer,processor)");
     public static final Literal RETAILER_AT_CUSTOMER = Literal.parseLiteral("at(retailer,customer)");
@@ -48,8 +48,8 @@ public class RoadEnv extends Environment {
             addPercept("retailer", Literal.parseLiteral("stock(car," + model.availableCars + ")"));
         }
         if (model.accept_deliveryCount > 0) {
-            addPercept("retailer", HAS_CUSTOMER_CAR);
-            addPercept("customer", HAS_CUSTOMER_CAR);
+            addPercept("retailer", HAS_CAR);
+            addPercept("customer", HAS_CAR);
         }
     }
 
@@ -82,7 +82,7 @@ public class RoadEnv extends Environment {
             result = model.getCar();
 
         } else if (action.equals(HAND_IN_CAR)) {
-            result = model.handInCar();
+            result = model.takeCar();
 
         } else if (action.equals(ACCEPT_DELIVERY)) {
             result = model.accept_deliveryCar();

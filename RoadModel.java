@@ -91,7 +91,7 @@ public class RoadModel extends GridWorldModel {
         return true;
     }
 
-    boolean handInCar() {
+    boolean takeCar() {
         if (carryingCar) {
             accept_deliveryCount = 2;
             carryingCar = false;

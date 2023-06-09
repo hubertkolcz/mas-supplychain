@@ -1,13 +1,10 @@
 /* Initial beliefs and rules */
 
-// Retailer believes that cars are available in Processor, so he can start move forward
-available(car,processor).
+available(car,processor). // Retailer believes that cars are available in Processor, so he can start move forward
 
-// Retailer cannot sell more than 4 cars a day, due to tax regulations
-limit(car,4).
+limit(car,4). // Retailer believes that he cannot sell more than 4 cars a day, due to tax regulations
 
-// Retailer believes that 
-too_much(B) :-
+too_much(B) :- // Retailer believes that there is too much of B (used for limiting transactions of cars per day, but may be extended for other utilities)
    .date(YY,MM,DD) &
    .count(sold(YY,MM,DD,_,_,_,B),QtdB) &
    limit(B,Limit) &
@@ -23,7 +20,7 @@ too_much(B) :-
       get(car);
       pay(processor);
       !at(retailer,customer);
-      hand_in(car);
+      take_car(car);
       ?has(customer,car);
       // remember that another car has been sold
       .date(YY,MM,DD); .time(HH,NN,SS);
@@ -57,8 +54,7 @@ too_much(B) :-
   <- +available(car,processor);
      !has(customer,car).
 
-// when the processor is sold, the car stock is perceived
-// and thus the available belief is updated
+// when the processor is sold, the car stock is perceived and thus the available belief is updated
 +stock(car,0)
    :  available(car,processor)
    <- -available(car,processor).
