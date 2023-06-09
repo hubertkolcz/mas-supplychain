@@ -11,17 +11,17 @@ public class RoadModel extends GridWorldModel {
     // the grid size
     public static final int GSize = 2;
 
-    boolean processorReady = false; // whether the processor is ready to sell cars to customer
-    boolean carryingCar = false; // whether the retailer is ready to carry cars to customer
+    boolean processorReady = false; // whether Processor is ready to pass the car(s) to Retailer
+    boolean carryingCar = false; // whether Retailer is delivering a car to Customer at the moment
     int accept_deliveryCount = 0; // how many accept_delivery the customer did
-    int availableCars = 2; // how many cars are available
+    int availableCars = 1; // how many cars are available in Retailer's stock
 
     Location lProcessor = new Location(0, 0);
     Location lCustomer = new Location(GSize - 1, GSize - 1);
 
     public RoadModel() {
-        // create a 7x7 grid with one mobile agent
-        super(GSize, GSize, 1);
+        // create a x7 grid with one mobile agent
+        super(GSize, GSize, 2);
 
         // initial location of retailer (column 3, line 3)
         // ag code 0 means the retailer
@@ -84,6 +84,7 @@ public class RoadModel extends GridWorldModel {
         }
     }
 
+// Producer actions, each view update causes new execution cycle (update of internal believes)
     boolean produceCar(int n) {
         availableCars += n;
         if (view != null)
@@ -93,7 +94,7 @@ public class RoadModel extends GridWorldModel {
 
     boolean takeCar() {
         if (carryingCar) {
-            accept_deliveryCount = 2;
+            accept_deliveryCount = 1;
             carryingCar = false;
             if (view != null)
                 view.update(lCustomer.x, lCustomer.y);

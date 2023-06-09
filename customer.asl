@@ -2,7 +2,7 @@
 
 /* Initial desire */
 
-!get(car).
+!try(car).
 
 /* Plans to achieve desires */
 
@@ -12,22 +12,23 @@
 
 /* Plans to achieve desires*/
 
-+!accept_delivery(car) : has(customer,car) // what to do, when customer has car
-   <- accept_delivery(car);
-     !accept_delivery(car). // activate event "accept_delivery"
++!pay(retailer) : has(customer,car) // what to do, when customer has car // activate event "accept_delivery"
+   <- pay(retailer);
+     !pay(retailer).
 
-+!accept_delivery(car) : not has(customer,car) // what to do, when customer doesn't have car
+ // what to do, when customer doesn't have car
++!pay(retailer) : not has(customer,car)
    <- true.
 
-+!get(car) : true //  because true at the beginning, has(customer,car) desire of customer, is one of the initial goals of retailer
++!try(car) : true //  because true at the beginning, has(customer,car) desire of customer, is one of the initial goals of retailer
    <- .send(retailer, achieve, has(customer,car)). // when customer wants to get another car, send reailer an order to achieve desire "has(customer,car)"
 
 /* Triggers on events*/
 
-+has(customer,car) : true 
-   <- !accept_delivery(car). // when customer starts to have car (which was delivered by retailer), activate action "accept_delivery"
++has(customer,car) : true  // when customer starts to have car (which was delivered by retailer), activate action "accept_delivery"
+   <- !pay(retailer).
 
 -has(customer,car) : true 
-   <- !get(car). // when customer stops to have car, activate desire, that customer wants to get another car
+   <- !try(car). // when customer stops to have car, activate desire, that customer wants to get another car
 
 

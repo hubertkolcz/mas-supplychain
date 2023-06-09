@@ -8,9 +8,9 @@ public class RoadEnv extends Environment {
     // common literals
     public static final Literal NEGOTIATE_WITH_PROCESSOR = Literal.parseLiteral("negotiate(processor)");
     public static final Literal PAY_TO_PROCESSOR = Literal.parseLiteral("pay(processor)");
-    public static final Literal GET_CAR = Literal.parseLiteral("get(car)");
-    public static final Literal HAND_IN_CAR = Literal.parseLiteral("take_car(car)");
-    public static final Literal ACCEPT_DELIVERY = Literal.parseLiteral("accept_delivery(car)");
+    public static final Literal TRY_CAR = Literal.parseLiteral("try(car)");
+    public static final Literal GIVE_CAR = Literal.parseLiteral("give_car(car)");
+    public static final Literal ACCEPT_DELIVERY = Literal.parseLiteral("pay(retailer)");
     public static final Literal HAS_CAR = Literal.parseLiteral("has(customer,car)");
 
     public static final Literal RETAILER_AT_PROCESSOR = Literal.parseLiteral("at(retailer,processor)");
@@ -26,7 +26,10 @@ public class RoadEnv extends Environment {
         updatePercepts();
     }
 
-    /** creates the agents percepts based on the RoadModel */
+    /**
+     * updated the agents beliefs based on the RoadModel - position of Retailer on
+     * Grid
+     */
     void updatePercepts() {
         // clear the percepts of the agents
         clearPercepts("retailer");
@@ -35,7 +38,7 @@ public class RoadEnv extends Environment {
         // get the retailer location
         Location lRetailer = model.getAgPos(0);
 
-        // add agent location to its percepts
+        // add Retailer location to its percepts
         if (lRetailer.equals(model.lProcessor)) {
             addPercept("retailer", RETAILER_AT_PROCESSOR);
         }
@@ -43,7 +46,7 @@ public class RoadEnv extends Environment {
             addPercept("retailer", RETAILER_AT_CUSTOMER);
         }
 
-        // add car "status" the percepts
+        // add belief about number of cars in the stock of Retailer, during transportation
         if (model.processorReady) {
             addPercept("retailer", Literal.parseLiteral("stock(car," + model.availableCars + ")"));
         }
@@ -78,20 +81,20 @@ public class RoadEnv extends Environment {
                 e.printStackTrace();
             }
 
-        } else if (action.equals(GET_CAR)) {
+        } else if (action.equals(TRY_CAR)) {
             result = model.getCar();
 
-        } else if (action.equals(HAND_IN_CAR)) {
+        } else if (action.equals(GIVE_CAR)) {
             result = model.takeCar();
 
         } else if (action.equals(ACCEPT_DELIVERY)) {
             result = model.accept_deliveryCar();
 
         } else if (action.getFunctor().equals("prepare")) {
-            // wait 4 seconds to finish "produce"
+            // wait 2 seconds to finish "produce"
             try {
-                Thread.sleep(4000);
-                result = model.produceCar((int) ((NumberTerm) action.getTerm(1)).solve());
+                Thread.sleep(2000); // simulating time which takes to produce
+                result = model.produceCar((int) ((NumberTerm) action.getTerm(1)).solve()); // casting to int
             } catch (Exception e) {
                 LOGGER.info("Failed to prepare car!" + e);
             }
